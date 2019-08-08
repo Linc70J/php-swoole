@@ -15,39 +15,34 @@ USER root
 # Installing tools and PHP extentions using "apt", "docker-php", "pecl",
 #
 
-# Install "curl", "apt-utils", "vim", "supervisor", "libmemcached-dev", "libpq-dev",
-#         "libjpeg-dev", "libpng-dev", "libfreetype6-dev", "libssl-dev", "libmcrypt-dev",
 RUN apt-get update && \
-  apt-get upgrade -y && \
-  apt-get install -y --no-install-recommends \
-    curl \
+    apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends \
     apt-utils \
     vim \
+    curl \
     supervisor \
-    libmemcached-dev \
-    libz-dev \
     libpq-dev \
-    libjpeg-dev \
-    libpng-dev \
     libfreetype6-dev \
+    libpng-dev \
+    libjpeg-dev \
     libssl-dev \
     libmcrypt-dev \
-    libzip-dev zip unzip
-
-# always run apt update when start and after add new source list.
-RUN set -xe; \
-    # Install the PHP zip library
-    pecl channel-update pecl.php.net && \
-    docker-php-ext-configure zip --with-libzip && \
-    docker-php-ext-install zip && \
-    # Install the PHP swoole library
-    pecl install swoole && \
-    docker-php-ext-enable swoole
-
-# composer
-RUN mkdir /tmp/composer && \
-    cd /tmp/composer; curl -sS https://getcomposer.org/installer | php; cd - && \
-    mv /tmp/composer/composer.phar /usr/local/bin/composer
+    libzip-dev && \
+    # Install the PHP Core Extensions
+    docker-php-ext-configure gd \
+    --with-gd \
+    --with-freetype-dir=/usr/include/ \
+    --with-png-dir=/usr/include/ \
+    --with-jpeg-dir=/usr/include/ && \
+    docker-php-ext-install gd exif zip && \
+    # Install the PHP Swoole and Xdebug library
+    pecl install swoole xdebug && \
+    docker-php-ext-enable swoole xdebug && \
+    # Install the Comopser
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+    php composer-setup.php --quiet --install-dir=/usr/bin --filename=composer && \
+    rm composer-setup.php
 
 # Clean up
 RUN apt-get clean && \
