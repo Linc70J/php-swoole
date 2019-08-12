@@ -4,9 +4,8 @@
 如果您有改進或建議，歡迎在GitHub上提出Issues或發送PR。
 
 ## Version
-| Docker Tag | Git Release | PHP Version |
-|------------|-------------|-------------|
-| latest | Master Branch | 7.2.18 |
+
+各版本的變更資訊在記載於 [版本更新紀錄](https://github.com/Linc70J/php-swoole/wiki/%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E7%B4%80%E9%8C%84)。
 
 ## Get this image
 
@@ -51,17 +50,37 @@ $http = new swoole_http_server('0.0.0.0', 80, SWOOLE_BASE);
 
 Laravel framework 推薦使用[Laravel-Swoole](https://github.com/swooletw/laravel-swoole)，幫助您啟動swoole服務
 
-## PHP Extensions
-- swoole
-- zip
-
-## Tools
+## Linux Package Tools
 - apt
-- docker-php
 - pecl
 - curl
 - vim
 - supervisor
+- apt-utils
+- composer
+- g++
+
+## Linux Library Package
+- libpq-dev
+- libjpeg-dev
+- libpng-dev
+- libfreetype6-dev
+- libssl-dev
+- libmcrypt-dev
+- libzip-dev
+- zlib1g-dev
+- libicu-dev
+
+## PHP Core Extensions
+- zip
+- gd
+- exif
+- intl
+- pcntl
+
+## PHP Extensions
+- swoole
+- xdebug
 
 
 ## Links
