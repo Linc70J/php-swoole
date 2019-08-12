@@ -40,7 +40,7 @@ RUN apt-get update && \
     --with-jpeg-dir=/usr/include/ && \
     docker-php-ext-configure zip --with-libzip && \
     docker-php-ext-configure intl && \
-    docker-php-ext-install gd exif zip intl pcntl && \do
+    docker-php-ext-install gd exif zip intl pcntl && \
     # Install the PHP Swoole and Xdebug library
     pecl install swoole xdebug && \
     docker-php-ext-enable swoole xdebug && \
